@@ -1,4 +1,4 @@
-// port-lint: ignore - MIME_TYPES data structure integrity tests
+// port-lint: source src/lib.rs
 package io.github.kotlinmania.mimeguess
 
 import kotlin.test.Test

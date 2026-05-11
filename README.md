@@ -1,10 +1,17 @@
-# mime-guess-kotlin in Kotlin
+# mime-guess-kotlin
 
 [![GitHub link](https://img.shields.io/badge/GitHub-KotlinMania%2Fmime--guess--kotlin-blue.svg)](https://github.com/KotlinMania/mime-guess-kotlin)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kotlinmania/mime-guess-kotlin)](https://central.sonatype.com/artifact/io.github.kotlinmania/mime-guess-kotlin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build status](https://img.shields.io/github/actions/workflow/status/KotlinMania/mime-guess-kotlin/ci.yml?branch=main)](https://github.com/KotlinMania/mime-guess-kotlin/actions)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.21-7F52FF.svg?logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF.svg?logo=kotlin&logoColor=white)](https://kotlinlang.org/docs/multiplatform.html)
 
 This is a Kotlin Multiplatform line-by-line transliteration port of [`abonander/mime_guess`](https://github.com/abonander/mime_guess).
+
+## Maintainer
+
+**Sydney Renee** ([@sydneyrenee](https://github.com/sydneyrenee)) — *The Solace Project* — <sydney@solace.ofharmony.ai>
 
 **Original Project:** This port is based on [`abonander/mime_guess`](https://github.com/abonander/mime_guess). All design credit and project intent belong to the upstream authors; this repository is a faithful port to Kotlin Multiplatform with no behavioural changes intended.
 
@@ -147,4 +154,6 @@ Kotlin port: Copyright (c) 2026 Sydney Renee and The Solace Project.
 
 ### Acknowledgments
 
-Thanks to the [`abonander/mime_guess`](https://github.com/abonander/mime_guess) maintainers and contributors for the original Rust implementation. This port reproduces their work in Kotlin Multiplatform; bug reports about upstream design or behavior should go to the upstream repository.
+Sincere thanks to **Austin Bonander** ([@abonander](https://github.com/abonander)) and every contributor to [`abonander/mime_guess`](https://github.com/abonander/mime_guess) for the original Rust implementation. The crate's design, MIME type tables, lookup machinery, and test suite are theirs; this repository merely translates that work into Kotlin Multiplatform.
+
+If you find this port useful, please also consider starring the upstream project — it is the source of all the real engineering credit here. Bug reports about upstream design or behavior should go to the upstream repository.

@@ -1,4 +1,4 @@
-// port-lint: ignore - translated subset of src/lib.rs tests that compile against the current port
+// port-lint: ignore - MIME_TYPES data structure integrity tests
 package io.github.kotlinmania.mimeguess
 
 import kotlin.test.Test

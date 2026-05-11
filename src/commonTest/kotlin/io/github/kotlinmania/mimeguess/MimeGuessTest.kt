@@ -1,11 +1,10 @@
-// port-lint: source src/lib.rs
+// port-lint: ignore - translated subset of src/lib.rs tests that compile against the current port
 package io.github.kotlinmania.mimeguess
 
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class MimeGuessTest {
-    // RFC: Is this test necessary anymore? --@cybergeek94, 2/1/2016
     @Test
     fun testAreExtensionsAscii() {
         for ((ext, _) in MIME_TYPES) {

@@ -2,6 +2,8 @@
 package io.github.kotlinmania.mimeguess
 
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class MimeGuessTest {
@@ -24,5 +26,30 @@ class MimeGuessTest {
                     "                in ascending order. Failed assert: \"$ext\" <= \"$nExt\"",
             )
         }
+    }
+
+    @Test
+    fun testMimeTypeGuessing() {
+        assertEquals("image/gif", fromExt("gif").firstOrOctetStream())
+        assertEquals("text/plain", fromExt("TXT").firstOrOctetStream())
+        assertEquals("application/octet-stream", fromExt("blahblah").firstOrOctetStream())
+
+        assertEquals("image/gif", fromPath("/path/to/file.gif").firstOrOctetStream())
+        assertEquals("image/gif", fromPath("C:\\path\\to\\file.gif").firstOrOctetStream())
+    }
+
+    @Test
+    fun testMimeTypeGuessingOpt() {
+        assertEquals("image/gif", fromExt("gif").first())
+        assertEquals("text/plain", fromExt("TXT").first())
+        assertNull(fromExt("blahblah").first())
+
+        assertEquals("image/gif", fromPath("/path/to/file.gif").first())
+        assertNull(fromPath("/path/to/file").first())
+    }
+
+    @Test
+    fun testGetMimeExtensionsStrNoPanicIfBadMime() {
+        assertNull(getMimeExtensionsStr(""))
     }
 }

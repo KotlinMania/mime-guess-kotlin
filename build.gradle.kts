@@ -50,8 +50,6 @@ kotlin {
             xcf.add(this)
         }
     }
-    linuxX64()
-    mingwX64()
     iosArm64 {
         binaries.framework {
             baseName = "MimeGuess"
@@ -64,6 +62,57 @@ kotlin {
             xcf.add(this)
         }
     }
+    iosX64 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    tvosArm64 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    tvosSimulatorArm64 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    watchosArm32 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    watchosArm64 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    watchosDeviceArm64 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    watchosSimulatorArm64 {
+        binaries.framework {
+            baseName = "MimeGuess"
+            xcf.add(this)
+        }
+    }
+    linuxX64()
+    linuxArm64()
+    mingwX64()
+
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
+
     js {
         browser()
         nodejs()
@@ -71,6 +120,10 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
+        nodejs()
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmWasi {
         nodejs()
     }
 
@@ -88,6 +141,8 @@ kotlin {
             sourceSetTreeName = "test"
         }
     }
+
+    jvm()
 
     sourceSets {
         val commonMain by getting {
@@ -110,7 +165,7 @@ rootProject.extensions.configure<NodeJsEnvSpec>("kotlinNodeJsSpec") {
 }
 
 rootProject.extensions.configure<WasmNodeJsEnvSpec>("kotlinWasmNodeJsSpec") {
-    version.set("22.22.2")
+    version.set("24.15.0")
 }
 
 rootProject.extensions.configure<YarnRootEnvSpec>("kotlinYarnSpec") {
@@ -302,6 +357,7 @@ tasks.register("test") {
 
     val defaultTestTasks = listOf(
         "macosArm64Test",
+        "jvmTest",
         "jsNodeTest",
         "wasmJsNodeTest",
         "compileAndroidMain",

@@ -196,7 +196,10 @@ class Iter internal constructor(private val raw: IterRaw) : Iterator<String> {
     /** Length of the underlying sequence, matching upstream `ExactSizeIterator::len`. */
     val size: Int get() = raw.size
 
-    /** Reverse iteration helper, matching upstream `DoubleEndedIterator::next_back`. */
+    /** Pop and return the last remaining parsed media-type value, matching upstream `DoubleEndedIterator::next_back`. */
+    fun nextBack(): String? = raw.nextBack()?.let(::expectMime)
+
+    /** Reverse iteration helper, producing a new fully-reversed view of the remaining range. */
     fun reversed(): Iter = Iter(raw.reversed())
 }
 
@@ -230,7 +233,7 @@ class IterRaw internal constructor(private val backing: List<String>) : Iterator
     fun reversed(): IterRaw = IterRaw(backing.subList(index, endExclusive).asReversed())
 }
 
-private fun expectMime(s: String): String {
+internal fun expectMime(s: String): String {
     // The mime-types table is exhaustively tested for parseability upstream; for the
     // string-typed Kotlin port this is the identity function, but the indirection is preserved
     // so a future `Mime` data class can plug in real parsing here.

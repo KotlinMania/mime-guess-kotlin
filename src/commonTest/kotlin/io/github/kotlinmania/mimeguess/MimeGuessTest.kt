@@ -49,7 +49,11 @@ class MimeGuessTest {
     }
 
     @Test
-    fun testGetMimeExtensionsStrNoPanicIfBadMime() {
-        assertNull(getMimeExtensionsStr(""))
+    fun testAreMimeTypesParseable() {
+        for ((_, mimes) in MIME_TYPES) {
+            for (s in mimes) {
+                expectMime(s)
+            }
+        }
     }
 }

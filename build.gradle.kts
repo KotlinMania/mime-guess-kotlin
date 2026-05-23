@@ -209,10 +209,18 @@ kotlin {
         binaries.framework { baseName = "MimeGuess"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "MimeGuess"; xcf.add(this) }
+        binaries.framework {
+            baseName = "MimeGuess"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "MimeGuess"; xcf.add(this) }
+        binaries.framework {
+            baseName = "MimeGuess"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {

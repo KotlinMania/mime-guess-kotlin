@@ -1,4 +1,4 @@
-// port-lint: source src/mime_types.rs
+// port-lint: source mime_types.rs
 package io.github.kotlinmania.mimeguess
 
 /**

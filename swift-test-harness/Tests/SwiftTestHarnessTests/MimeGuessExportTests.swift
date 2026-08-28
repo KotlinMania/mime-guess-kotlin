@@ -1,4 +1,4 @@
-import XCTest
+import Testing
 import MimeGuess
 
 // Smoke test for the Kotlin → Swift Export → SPM → swift test pipeline.
@@ -28,8 +28,9 @@ import MimeGuess
 // Add more meaningful per-API tests below as the Swift Export surface
 // grows. For now the import + a single passing assertion is the
 // canary that the pipeline is green for this repo.
-final class MimeGuessExportTests: XCTestCase {
-    func testSwiftModuleLoads() throws {
-        XCTAssertTrue(true, "MimeGuess swift module imported cleanly")
+@Suite struct MimeGuessExportTests {
+    @Test func swiftModuleLoads() {
+        #expect(true, "MimeGuess swift module imported cleanly")
     }
 }
+

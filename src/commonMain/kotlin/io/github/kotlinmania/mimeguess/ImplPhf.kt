@@ -1,13 +1,16 @@
-// port-lint: source impl_bin_search.rs
+// port-lint: source impl_phf.rs
 package io.github.kotlinmania.mimeguess
 
-internal data class TopLevelExts(
-    val start: Int,
-    val end: Int,
-    val subs: List<Pair<String, Pair<Int, Int>>>,
-)
+/**
+ * Map lookup implementation.
+ */
+internal object ImplPhf {
+    data class TopLevelExts(
+        val start: Int,
+        val end: Int,
+        val subs: List<Pair<String, Pair<Int, Int>>>,
+    )
 
-internal object ImplBinSearch {
     fun getMimeTypes(ext: String): List<String>? {
         return mapLookup(MIME_TYPES, ext)
     }

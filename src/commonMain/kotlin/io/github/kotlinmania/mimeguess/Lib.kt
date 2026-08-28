@@ -1,4 +1,4 @@
-// port-lint: source src/lib.rs
+// port-lint: source lib.rs
 package io.github.kotlinmania.mimeguess
 
 /**
@@ -8,31 +8,27 @@ package io.github.kotlinmania.mimeguess
  *
  * ```
  * // the file doesn't have to exist, it just looks at the path
- * val guess = fromPath("some_file.gif")
+ * val guess = fromPath("someFile.gif")
  * check(guess.first() == "image/gif")
  * ```
  *
  * #### Note: MIME Types Returned Are Not Stable/Guaranteed
- * The media types returned for a given extension are not considered to be part of the crate's
- * stable API and are often updated in patch (`x.y.[z + 1]`) releases to be as correct as
- * possible.
+ * The media types returned for a given extension are not considered to be part of the library's
+ * stable API and are often updated in patch releases to be as correct as possible.
  *
  * Additionally, only the extensions of paths/filenames are inspected in order to guess the MIME
  * type. The file that may or may not reside at that path may or may not be a valid file of the
- * returned MIME type. Be wary of unsafe or un-validated assumptions about file structure or
- * length.
+ * returned MIME type. Be wary of unverified assumptions about file structure or length.
  *
- * The upstream Rust crate re-exports `mime::Mime` as its own media-type. Until a `mime-kotlin`
- * sibling artifact is published, this port represents a parsed media type as a raw [String];
- * callers who need richer parsing can wrap the result with their own type. The publicly exposed
- * helper [MIME_APPLICATION_OCTET_STREAM] and [MIME_TEXT_PLAIN] preserve the upstream constants
- * `mime::APPLICATION_OCTET_STREAM` and `mime::TEXT_PLAIN` as Kotlin-side string literals.
+ * This port represents a parsed media type as a raw [String]; callers who need richer parsing
+ * can wrap the result with their own type. The publicly exposed helper [MIME_APPLICATION_OCTET_STREAM]
+ * and [MIME_TEXT_PLAIN] provide standard string literals.
  */
 
-/** Counterpart to upstream `mime::APPLICATION_OCTET_STREAM`. */
+/** Counterpart to standard application/octet-stream media type. */
 const val MIME_APPLICATION_OCTET_STREAM: String = "application/octet-stream"
 
-/** Counterpart to upstream `mime::TEXT_PLAIN`. */
+/** Counterpart to standard text/plain media type. */
 const val MIME_TEXT_PLAIN: String = "text/plain"
 
 /**
@@ -46,10 +42,6 @@ const val MIME_TEXT_PLAIN: String = "text/plain"
  * ### Note: Values Not Stable
  * The exact Media Types returned in any given guess are not considered to be stable and are
  * often updated in patch releases in order to reflect the most up-to-date information possible.
- *
- * Upstream Rust derives `Copy, Clone, Debug, PartialEq, Eq`. The data-class translation gets
- * structural equality, `hashCode`, and `toString` for free; immutability of the backing list is
- * the consumer's responsibility, matching the upstream `&'static [&'static str]` field.
  */
 class MimeGuess internal constructor(private val backing: List<String>) {
 
@@ -131,6 +123,9 @@ class MimeGuess internal constructor(private val backing: List<String>) {
     /** Allow `for (mime in guess)` style iteration; the iterator yields parsed media-type values. */
     operator fun iterator(): Iterator<String> = iter()
 
+    /** Into-iterator conversion. */
+    fun intoIter(): Iter = iter()
+
     override fun equals(other: Any?): Boolean = other is MimeGuess && backing == other.backing
 
     override fun hashCode(): Int = backing.hashCode()
@@ -178,25 +173,29 @@ class MimeGuess internal constructor(private val backing: List<String>) {
     }
 }
 
+typealias Item = String
+typealias IntoIter = Iter
+
 /**
  * An iterator over the parsed media-type values of a [MimeGuess].
  *
  * See [Note: Ordering on `MimeGuess`][MimeGuess].
- *
- * Upstream Rust derives `Clone, Debug` and implements `Iterator`, `DoubleEndedIterator`,
- * `FusedIterator`, and `ExactSizeIterator`. Kotlin's standard `Iterator` interface covers
- * forward iteration; bidirectional and exact-size access are surfaced through [reversed] and
- * [size] which call into the raw underlying list.
  */
 class Iter internal constructor(private val raw: IterRaw) : Iterator<String> {
     override fun hasNext(): Boolean = raw.hasNext()
 
     override fun next(): String = expectMime(raw.next())
 
-    /** Length of the underlying sequence, matching upstream `ExactSizeIterator::len`. */
+    /** Length of the underlying sequence. */
     val size: Int get() = raw.size
 
-    /** Pop and return the last remaining parsed media-type value, matching upstream `DoubleEndedIterator::next_back`. */
+    /** Length of the underlying sequence. */
+    fun len(): Int = size
+
+    /** Size hint of the iterator. */
+    fun sizeHint(): Pair<Int, Int?> = raw.sizeHint()
+
+    /** Pop and return the last remaining parsed media-type value. */
     fun nextBack(): String? = raw.nextBack()?.let(::expectMime)
 
     /** Reverse iteration helper, producing a new fully-reversed view of the remaining range. */
@@ -219,17 +218,23 @@ class IterRaw internal constructor(private val backing: List<String>) : Iterator
         return backing[index++]
     }
 
-    /** Pop and return the last remaining element, matching upstream `DoubleEndedIterator`. */
+    /** Pop and return the last remaining element. */
     fun nextBack(): String? {
         if (index >= endExclusive) return null
         endExclusive--
         return backing[endExclusive]
     }
 
-    /** Length of the underlying sequence, matching upstream `ExactSizeIterator::len`. */
+    /** Length of the underlying sequence. */
     val size: Int get() = endExclusive - index
 
-    /** Reverse iteration helper, matching upstream `DoubleEndedIterator::next_back`. */
+    /** Length of the underlying sequence. */
+    fun len(): Int = size
+
+    /** Size hint of the iterator. */
+    fun sizeHint(): Pair<Int, Int?> = Pair(size, size)
+
+    /** Reverse iteration helper. */
     fun reversed(): IterRaw = IterRaw(backing.subList(index, endExclusive).asReversed())
 }
 
@@ -371,10 +376,6 @@ fun getMimeTypeStr(searchExt: String): String? = fromExt(searchExt).firstRaw()
  * If the top-level of the MIME type is a wildcard (`*`), returns all extensions.
  *
  * If the sub-level of the MIME type is a wildcard, returns all extensions for the top-level.
- *
- * The upstream Rust signature `getMimeExtensions(mime: Mime)` takes a parsed `mime::Mime`;
- * the Kotlin port deconstructs the string-typed media value inline, so this is the same operation as
- * [getMimeExtensionsStr] minus the `;`-parameter trimming.
  */
 fun getMimeExtensions(mime: String): List<String>? {
     val splitIdx = mime.indexOf('/')
@@ -416,6 +417,16 @@ fun getMimeExtensionsStr(mimeStr: String): List<String>? {
 }
 
 /**
+ * Get the MIME types associated with a file extension.
+ */
+fun getMimeTypes(ext: String): List<String>? = ImplBinSearch.getMimeTypes(ext)
+
+/**
+ * Get the extensions associated with a top-level and sub-level MIME type.
+ */
+fun getExtensions(toplevel: String, sublevel: String): List<String>? = ImplBinSearch.getExtensions(toplevel, sublevel)
+
+/**
  * Get the MIME type for `application/octet-stream` (generic binary stream).
  */
 @Deprecated(
@@ -423,3 +434,4 @@ fun getMimeExtensionsStr(mimeStr: String): List<String>? {
     replaceWith = ReplaceWith("MIME_APPLICATION_OCTET_STREAM"),
 )
 fun octetStream(): String = MIME_APPLICATION_OCTET_STREAM
+

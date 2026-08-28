@@ -9,12 +9,6 @@ package io.github.kotlinmania.mimeguess
 // so impl_bin_search.rs's binary_search_by_key compiles to a working
 // case-insensitive lookup.
 
-internal data class TopLevelExts(
-    val start: Int,
-    val end: Int,
-    val subs: List<Pair<String, Pair<Int, Int>>>,
-)
-
 internal val EXTS: List<String> = listOf(
     "dwg", "ez", "anx", "aw", "atom", "atomcat", "atomsvc", "bdoc",
     "ccxml", "cdmia", "cdmic", "cdmid", "cdmio", "cdmiq", "cu", "mpd",

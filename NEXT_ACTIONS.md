@@ -5,12 +5,12 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 4/4 (100.0%)
-- **Function parity:** 48/49 matched (target 62) — 98.0%
-- **Class/type parity:** 7/7 matched (target 10) — 100.0%
-- **Combined symbol parity:** 55/56 matched (target 72) — 98.2%
-- **Average inline-code cosine:** 0.47 (function body across 4 matched files)
-- **Average documentation cosine:** 0.48 (doc text across 4 matched files)
-- **Cheat-zeroed Files:** 0
+- **Function parity:** 49/49 matched (target 64) — 100.0%
+- **Class/type parity:** 7/7 matched (target 11) — 100.0%
+- **Combined symbol parity:** 56/56 matched (target 75) — 100.0%
+- **Average inline-code cosine:** 0.41 (function body across 4 matched files)
+- **Average documentation cosine:** 0.46 (doc text across 4 matched files)
+- **Cheat-zeroed Files:** 1
 - **Critical Issues:** 3 files with <0.60 function similarity
 - **Needs Review:** 0 files with 0.60-0.84 function similarity
 - **Excellent:** 1 files with >=0.85 function similarity
@@ -31,13 +31,13 @@ Every matched file is listed below with function and type symbol parity.
 
 ### 1. lib
 
-- **Target:** `mimeguess.Lib`
-- **Similarity:** 0.23
+- **Target:** `mimeguess.MimeGuess [ZERO]`
+- **Similarity:** 0.00
 - **Dependents:** 0
-- **Priority Score:** 14807.7
-- **Functions:** 42/43 matched (target 54)
-- **Missing functions:** `into_iter`
-- **Types:** 5/5 matched (target 6)
+- **Priority Score:** 4810.0
+- **Functions:** 43/43 matched (target 56)
+- **Missing functions:** _none_
+- **Types:** 5/5 matched (target 7)
 - **Missing types:** _none_
 - **Tests:** 8/8 matched
 

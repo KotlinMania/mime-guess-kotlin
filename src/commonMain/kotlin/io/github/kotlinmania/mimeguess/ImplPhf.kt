@@ -11,9 +11,7 @@ internal object ImplPhf {
         val subs: List<Pair<String, Pair<Int, Int>>>,
     )
 
-    fun getMimeTypes(ext: String): List<String>? {
-        return mapLookup(MIME_TYPES, ext)
-    }
+    fun getMimeTypes(ext: String): List<String>? = mapLookup(MIME_TYPES, ext)
 
     fun getExtensions(toplevel: String, sublevel: String): List<String>? {
         if (toplevel == "*") {

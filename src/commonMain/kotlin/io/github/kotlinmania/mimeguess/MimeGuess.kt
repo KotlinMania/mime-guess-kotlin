@@ -1,21 +1,9 @@
-// port-lint: source lib.rs
 package io.github.kotlinmania.mimeguess
 
-import io.github.kotlinmania.mime.Mime
-
 import io.github.kotlinmania.mime.APPLICATION_OCTET_STREAM
+import io.github.kotlinmania.mime.Mime
 import io.github.kotlinmania.mime.TEXT_PLAIN
 import io.github.kotlinmania.mime.parse
-
-/**
- * Re-export of [io.github.kotlinmania.mime.Mime] per upstream `pub use mime::Mime;`.
- */
-
-/** Counterpart to standard application/octet-stream media type. */
-val MIME_APPLICATION_OCTET_STREAM: Mime = APPLICATION_OCTET_STREAM
-
-/** Counterpart to standard text/plain media type. */
-val MIME_TEXT_PLAIN: Mime = TEXT_PLAIN
 
 /**
  * A "guess" of the MIME/Media Type(s) of an extension or path as one or more
@@ -252,12 +240,3 @@ internal fun pathExtension(path: String): String? {
     val ext = fileName.substring(dot + 1)
     return if (ext.isEmpty()) null else ext
 }
-
-/** Wrapper of [MimeGuess.fromExt]. */
-fun fromExt(ext: String): MimeGuess = MimeGuess.fromExt(ext)
-
-/** Wrapper of [MimeGuess.fromPath]. */
-fun fromPath(path: String): MimeGuess = MimeGuess.fromPath(path)
-
-/** Into-iterator conversion for [MimeGuess]. */
-fun intoIter(guess: MimeGuess): Iter = guess.intoIter()

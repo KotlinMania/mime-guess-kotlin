@@ -1,6 +1,8 @@
 // port-lint: source lib.rs
 package io.github.kotlinmania.mimeguess
 
+import io.github.kotlinmania.mime.Mime
+
 import io.github.kotlinmania.mime.APPLICATION_OCTET_STREAM
 
 /**

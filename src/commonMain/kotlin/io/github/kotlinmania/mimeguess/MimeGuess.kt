@@ -1,6 +1,8 @@
 // port-lint: source lib.rs
 package io.github.kotlinmania.mimeguess
 
+import io.github.kotlinmania.mime.Mime
+
 import io.github.kotlinmania.mime.APPLICATION_OCTET_STREAM
 import io.github.kotlinmania.mime.TEXT_PLAIN
 import io.github.kotlinmania.mime.parse
@@ -8,7 +10,6 @@ import io.github.kotlinmania.mime.parse
 /**
  * Re-export of [io.github.kotlinmania.mime.Mime] per upstream `pub use mime::Mime;`.
  */
-typealias Mime = io.github.kotlinmania.mime.Mime
 
 /** Counterpart to standard application/octet-stream media type. */
 val MIME_APPLICATION_OCTET_STREAM: Mime = APPLICATION_OCTET_STREAM

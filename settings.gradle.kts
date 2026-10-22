@@ -16,13 +16,3 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "mime-guess-kotlin"
-
-val mimeKotlinLocal = file("../mime-kotlin")
-if (mimeKotlinLocal.exists()) {
-    includeBuild(mimeKotlinLocal) {
-        dependencySubstitution {
-            substitute(module("io.github.kotlinmania:mime-kotlin"))
-                .using(project(":"))
-        }
-    }
-}

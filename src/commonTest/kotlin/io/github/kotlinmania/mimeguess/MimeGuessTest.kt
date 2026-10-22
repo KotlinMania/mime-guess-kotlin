@@ -15,7 +15,7 @@ class MimeGuessTest {
 
     @Test
     fun assertTypeBounds() {
-        val guess = fromExt("gif")
+        val guess = MimeGuess.fromExt("gif")
         assertNotNull(guess)
         val iter = guess.iter()
         assertNotNull(iter)
@@ -25,22 +25,22 @@ class MimeGuessTest {
 
     @Test
     fun testMimeTypeGuessing() {
-        assertEquals("image/gif", fromExt("gif").firstOrOctetStream().toString())
-        assertEquals("text/plain", fromExt("TXT").firstOrOctetStream().toString())
-        assertEquals("application/octet-stream", fromExt("blahblah").firstOrOctetStream().toString())
+        assertEquals("image/gif", MimeGuess.fromExt("gif").firstOrOctetStream().toString())
+        assertEquals("text/plain", MimeGuess.fromExt("TXT").firstOrOctetStream().toString())
+        assertEquals("application/octet-stream", MimeGuess.fromExt("blahblah").firstOrOctetStream().toString())
 
-        assertEquals("image/gif", fromPath("/path/to/file.gif").firstOrOctetStream().toString())
-        assertEquals("image/gif", fromPath("C:\\path\\to\\file.gif").firstOrOctetStream().toString())
+        assertEquals("image/gif", MimeGuess.fromPath("/path/to/file.gif").firstOrOctetStream().toString())
+        assertEquals("image/gif", MimeGuess.fromPath("C:\\path\\to\\file.gif").firstOrOctetStream().toString())
     }
 
     @Test
     fun testMimeTypeGuessingOpt() {
-        assertEquals("image/gif", fromExt("gif").first()?.toString())
-        assertEquals("text/plain", fromExt("TXT").first()?.toString())
-        assertNull(fromExt("blahblah").first())
+        assertEquals("image/gif", MimeGuess.fromExt("gif").first()?.toString())
+        assertEquals("text/plain", MimeGuess.fromExt("TXT").first()?.toString())
+        assertNull(MimeGuess.fromExt("blahblah").first())
 
-        assertEquals("image/gif", fromPath("/path/to/file.gif").first()?.toString())
-        assertNull(fromPath("/path/to/file").first())
+        assertEquals("image/gif", MimeGuess.fromPath("/path/to/file.gif").first()?.toString())
+        assertNull(MimeGuess.fromPath("/path/to/file").first())
     }
 
     @Test
@@ -95,7 +95,7 @@ class MimeGuessTest {
 
     @Test
     fun testIterators() {
-        val guess = fromExt("gif")
+        val guess = MimeGuess.fromExt("gif")
         val iter = guess.iter()
         assertEquals(iter.size, iter.len())
         assertEquals(iter.size, iter.sizeHint().first)

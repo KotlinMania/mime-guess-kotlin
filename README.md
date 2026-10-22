@@ -120,7 +120,7 @@ MIT (See the `LICENSE` file in this repository for more information.)
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:mime-guess-kotlin:0.1.0")
+    implementation("io.github.kotlinmania:mime-guess-kotlin:0.2.0")
 }
 ```
 

@@ -1,7 +1,6 @@
-// port-lint: source lib.rs
 package io.github.kotlinmania.mimeguess
 
-import io.github.kotlinmania.mime.APPLICATION_OCTET_STREAM
+import io.github.kotlinmania.mime.Mime
 
 /**
  * Guess the MIME type of `path` by its extension.
@@ -19,10 +18,10 @@ import io.github.kotlinmania.mime.APPLICATION_OCTET_STREAM
  * to not send a `Content-Type` header at all instead of defaulting to `application/octet-stream`.
  */
 @Deprecated(
-    message = "Use fromPath(path).firstOrOctetStream() instead",
-    replaceWith = ReplaceWith("fromPath(path).firstOrOctetStream()"),
+    message = "Use MimeGuess.fromPath(path).firstOrOctetStream() instead",
+    replaceWith = ReplaceWith("MimeGuess.fromPath(path).firstOrOctetStream()"),
 )
-fun guessMimeType(path: String): Mime = fromPath(path).firstOrOctetStream()
+fun guessMimeType(path: String): Mime = MimeGuess.fromPath(path).firstOrOctetStream()
 
 /**
  * Guess the MIME type of `path` by its extension.
@@ -31,10 +30,10 @@ fun guessMimeType(path: String): Mime = fromPath(path).firstOrOctetStream()
  * returned.
  */
 @Deprecated(
-    message = "Use fromPath(path).first() instead",
-    replaceWith = ReplaceWith("fromPath(path).first()"),
+    message = "Use MimeGuess.fromPath(path).first() instead",
+    replaceWith = ReplaceWith("MimeGuess.fromPath(path).first()"),
 )
-fun guessMimeTypeOpt(path: String): Mime? = fromPath(path).first()
+fun guessMimeTypeOpt(path: String): Mime? = MimeGuess.fromPath(path).first()
 
 /**
  * Guess the MIME type string of `path` by its extension.
@@ -49,10 +48,10 @@ fun guessMimeTypeOpt(path: String): Mime? = fromPath(path).first()
  * Take care when processing files with assumptions based on the return value of this function.
  */
 @Deprecated(
-    message = "Use fromPath(path).firstRaw() instead",
-    replaceWith = ReplaceWith("fromPath(path).firstRaw()"),
+    message = "Use MimeGuess.fromPath(path).firstRaw() instead",
+    replaceWith = ReplaceWith("MimeGuess.fromPath(path).firstRaw()"),
 )
-fun mimeStrForPathExt(path: String): String? = fromPath(path).firstRaw()
+fun mimeStrForPathExt(path: String): String? = MimeGuess.fromPath(path).firstRaw()
 
 /**
  * Get the MIME type associated with a file extension.
@@ -65,10 +64,10 @@ fun mimeStrForPathExt(path: String): String? = fromPath(path).firstRaw()
  * to not send a `Content-Type` header at all instead of defaulting to `application/octet-stream`.
  */
 @Deprecated(
-    message = "Use fromExt(searchExt).firstOrOctetStream() instead",
-    replaceWith = ReplaceWith("fromExt(searchExt).firstOrOctetStream()"),
+    message = "Use MimeGuess.fromExt(searchExt).firstOrOctetStream() instead",
+    replaceWith = ReplaceWith("MimeGuess.fromExt(searchExt).firstOrOctetStream()"),
 )
-fun getMimeType(searchExt: String): Mime = fromExt(searchExt).firstOrOctetStream()
+fun getMimeType(searchExt: String): Mime = MimeGuess.fromExt(searchExt).firstOrOctetStream()
 
 /**
  * Get the MIME type associated with a file extension.
@@ -76,10 +75,10 @@ fun getMimeType(searchExt: String): Mime = fromExt(searchExt).firstOrOctetStream
  * If there is no association for the extension, or `ext` is empty, `null` is returned.
  */
 @Deprecated(
-    message = "Use fromExt(searchExt).first() instead",
-    replaceWith = ReplaceWith("fromExt(searchExt).first()"),
+    message = "Use MimeGuess.fromExt(searchExt).first() instead",
+    replaceWith = ReplaceWith("MimeGuess.fromExt(searchExt).first()"),
 )
-fun getMimeTypeOpt(searchExt: String): Mime? = fromExt(searchExt).first()
+fun getMimeTypeOpt(searchExt: String): Mime? = MimeGuess.fromExt(searchExt).first()
 
 /**
  * Get the MIME type string associated with a file extension. Case-insensitive.
@@ -90,10 +89,10 @@ fun getMimeTypeOpt(searchExt: String): Mime? = fromExt(searchExt).first()
  * Returns `null` if `searchExt` is empty or an associated extension was not found.
  */
 @Deprecated(
-    message = "Use fromExt(searchExt).firstRaw() instead",
-    replaceWith = ReplaceWith("fromExt(searchExt).firstRaw()"),
+    message = "Use MimeGuess.fromExt(searchExt).firstRaw() instead",
+    replaceWith = ReplaceWith("MimeGuess.fromExt(searchExt).firstRaw()"),
 )
-fun getMimeTypeStr(searchExt: String): String? = fromExt(searchExt).firstRaw()
+fun getMimeTypeStr(searchExt: String): String? = MimeGuess.fromExt(searchExt).firstRaw()
 
 /**
  * Get a list of known extensions for a given [Mime].
@@ -160,12 +159,3 @@ fun getMimeTypes(ext: String): List<String>? = ImplBinSearch.getMimeTypes(ext)
  * Get the extensions associated with a top-level and sub-level MIME type.
  */
 fun getExtensions(toplevel: String, sublevel: String): List<String>? = ImplBinSearch.getExtensions(toplevel, sublevel)
-
-/**
- * Get the MIME type for `application/octet-stream` (generic binary stream).
- */
-@Deprecated(
-    message = "Use MIME_APPLICATION_OCTET_STREAM instead",
-    replaceWith = ReplaceWith("MIME_APPLICATION_OCTET_STREAM"),
-)
-fun octetStream(): Mime = APPLICATION_OCTET_STREAM
